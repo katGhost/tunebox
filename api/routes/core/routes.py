@@ -4,5 +4,5 @@ from . import core
 @core.route('/api/home', methods=['GET'])
 def index():
     """Home page -> redirects based on auth status"""
-    return jsonify({'message': 'Hello There from Flask API'})
+    return jsonify({'message': 'Welcome User'})
 
