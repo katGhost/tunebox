@@ -1,11 +1,8 @@
-from flask import request, render_template, redirect, url_for, session, g
+from flask import request, render_template, redirect, url_for, session, g, jsonify
+from . import core
 
-from api.routes import core
-
-#@core.route('/')
-#def index():
-#    """Home page -> redirects based on auth status"""
-#    if hasattr(g, 'user') and g.user:
-#        return redirect(url_for('auth.login'))
-#    return render_template('core/index.html')
+@core.route('/api/home', methods=['GET'])
+def index():
+    """Home page -> redirects based on auth status"""
+    return jsonify({'message': 'Hello There from Flask API'})
 
