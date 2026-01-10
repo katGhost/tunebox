@@ -3,6 +3,7 @@ from flask import Flask
 from flask_cors import CORS
 from api.extensions import db, migrate, jwt
 from api.routes.core import core
+from api.routes.auth import auth
 
 def create_app():
     app = Flask(__name__)
@@ -14,10 +15,14 @@ def create_app():
 
     CORS(app)
 
+    # Initializations
     db.init_app(app)
-    migrate.init_app(app, db)
     jwt.init_app(app)
 
-    app.register_blueprint(core)
+    # blueprint apps registration
+    app.register_blueprint(core, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/auth/')
+
+    migrate.init_app(app, db)
 
     return app
