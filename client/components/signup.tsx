@@ -5,35 +5,35 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export default function Signup() {
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [username, setUsername] = useState('');
+    // const [email, setEmail] = useState('');
 
-    // Handle sign up
-    const handleSignup = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const data = {
-            username: username,
-            email: email,
-            password: password
-        };
+    // // Handle sign up
+    // const handleSignup = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     const data = {
+    //         username: username,
+    //         email: email,
+    //         password: password
+    //     };
 
-        try{
-            const response = await axios.post('http://localhost:5000/auth/signup', {
-                username, email, password
-            }, { headers: { 'Content-Type': 'application/json' } }
-            );
+    //     try{
+    //         const response = await axios.post('http://localhost:5000/auth/signup', {
+    //             username, email, password
+    //         }, { headers: { 'Content-Type': 'application/json' } }
+    //         );
             
-            localStorage.setItem("acces_token", response.data.access_token);
-            alert("Login Success!");
-            console.log("Sign up success: ", response.data);
-        }
-        catch (err: any){
-            console.error(
-                err.response?.data || err.message
-            );
-        }
-    };
+    //         localStorage.setItem("acces_token", response.data.access_token);
+    //         alert("Login Success!");
+    //         console.log("Sign up success: ", response.data);
+    //     }
+    //     catch (err: any){
+    //         console.error(
+    //             err.response?.data || err.message
+    //         );
+    //     }
+    // };
 
     // const handleUsernameChange = (e) => {
     //     setUsername(e.target.value);
@@ -50,7 +50,7 @@ export default function Signup() {
     return (
         <div >
 
-            <form method="POST" onSubmit={handleSignup} >
+            {/* <form method="POST" onSubmit={handleSignup} >
                 <input
                     type="text"
                     placeholder="Username"
@@ -80,7 +80,7 @@ export default function Signup() {
                 
                 <button type="submit">Sign up</button>
 
-            </form>
+            </form> */}
             
         </div>
     );
