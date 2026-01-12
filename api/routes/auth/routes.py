@@ -53,8 +53,7 @@ def signup():
     # Get request
     return jsonify({'msg': 'You need to sign in'})
 
-    # redirect to home page/dashboard
-    #return redirect(url_for('core.home'))
+"""Login"""
 
 
 
