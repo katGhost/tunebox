@@ -26,7 +26,7 @@ def signup():
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
-    print('Received data:', username , password)
+    
 
     if not username or not email or not password:
         return jsonify({'msg': 'All fields are required!'}), 400
@@ -62,6 +62,40 @@ def signup():
     }), 201
 
 """Login"""
+@auth.route('/login', methods=['POST'])
+def login():
+    data = request.json() or {}
+
+    # user input fields
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+
+    # print user details
+    print('Received data:', username , password)
+
+    # get user if user in db
+    # allow login not only by username, also by email
+    user = User.query.filter((User.username==username) | (User.email==email)).first()
+
+    if not user:
+        return jsonify({'msg': 'Invalid username or password'}), 401
+    
+    if user and bcrypt.check_password_hash(user.password_hash, password):
+        # Give user access token
+        access_token = create_access_token(identity=user.id)
+        return jsonify({
+            'msg': 'Login Success!',
+            'success': True,
+            'access_token': access_token,
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+            }
+        })
+    else:
+        return jsonify({'msg': 'Login failed'}), 401
 
 
 
