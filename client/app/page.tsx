@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:8080/api/home');
+      const res = await fetch('http://localhost:5000/api/home');
       const result = await res.json();
       setMessage(result.message);
     };
