@@ -20,6 +20,10 @@
 # production
 /build
 
+# frontend || client
+client/stores/
+stores/
+
 # misc
 .DS_Store
 *.pem
