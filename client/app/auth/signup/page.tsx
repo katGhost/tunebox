@@ -28,7 +28,7 @@ export default function Signup() {
             // Save user and token tos store [always hide store]
             setAuth(user, access_token);
 
-            //localStorage.setItem("acces_token", response.data.access_token);
+            
             alert("Sign up Success!");
             //console.log("Sign up success: ", response.data);
         }
