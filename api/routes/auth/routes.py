@@ -21,7 +21,6 @@ def get_name():
 # Register/Signup route
 @auth.route('/signup', methods=['POST'])
 def signup():
-
     data = request.get_json() or {}
     username = data.get('username')
     email = data.get('email')
