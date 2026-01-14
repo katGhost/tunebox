@@ -28,7 +28,7 @@ export default function Signup() {
             // Save user and token tos store [always hide store]
             setAuth(user, access_token);
 
-            localStorage.setItem("acces_token", response.data.access_token);
+            //localStorage.setItem("acces_token", response.data.access_token);
             alert("Sign up Success!");
             //console.log("Sign up success: ", response.data);
         }
@@ -40,12 +40,24 @@ export default function Signup() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-            <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" required />
-            <button type="submit">Sign Up</button>
-        </form>
+        <div className="w-full max-w-sm mx-auto mt-20 px-4 py-6 bg-white dark:bg-neutral-900 p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Create an Account</h2>
+            <form onSubmit={handleSubmit}>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <div className="mb-3">
+                    <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required className="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-zinc-950 dark:text-gray-200 rounded-md p-3" />
+                </div>
+                <div className="mb-3">
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required className="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-zinc-950 dark:text-gray-200 rounded-md p-3" />
+                </div>
+                <div className="mb-3">
+                    <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" required className="form-input w-full border-gray-300 dark:border-gray-600 dark:bg-zinc-950 dark:text-gray-200 rounded-md p-3" />
+                </div>
+                <div className="mb-3">
+                    <button type="submit" className="w-full py-3 bg-emerald-500 text-white rounded-md hover:bg-emerald-700 transition">Sign Up</button>
+                </div>
+            </form>
+        </div>
+        
     );
 }
