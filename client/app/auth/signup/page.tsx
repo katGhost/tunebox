@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import api from '../../../lib/api';
 import { useAuthStore } from '../../../stores/auth';
 
@@ -11,6 +12,9 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const setAuth = useAuthStore((state) => state.setAuth);
+    //user router
+    const router = useRouter();
+
     
 
     // Handle sign up
@@ -28,14 +32,12 @@ export default function Signup() {
             // Save user and token tos store [always hide store]
             setAuth(user, access_token);
 
-            
-            alert("Sign up Success!");
+            // redirect to login
+            router.push('/auth/login');
             //console.log("Sign up success: ", response.data);
         }
         catch (err: any){
-            console.error(
-                err.response?.data || err.message
-            );
+            setError(err.response?.data?.msg || err.message);
         }
     };
 

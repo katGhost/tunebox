@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import api from '../../../lib/api';
 import { useAuthStore } from '../../../stores/auth';
 
@@ -11,6 +12,9 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const setAuth = useAuthStore((state) => state.setAuth);
+
+    // use router
+    const router = useRouter();
     
 
     // Handle login
@@ -22,15 +26,18 @@ export default function Signup() {
             const response = await api.post('auth/login', {email, password});
             const { access_token, user } = response.data;
 
-            // Save user and token -> remember to save locally
-            setAuth(user, access_token);
+            if (response.status == 200){
+                // Save user and token -> remember to save locally
+                setAuth(user, access_token);
 
-            localStorage.setItem("acces_token", access_token);
+                localStorage.setItem("access_token", access_token);
 
-            // try and redirect to homepage || dashboard
+                // try and redirect to homepage || dashboard
+                router.push('/dashboard');
+            }
         }
         catch (err: any) {
-            console.error(err.response?.data || err.message);
+            setError(err.response?.data?.msg || err.message);
         }
     } 
 
