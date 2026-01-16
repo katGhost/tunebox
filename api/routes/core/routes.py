@@ -8,9 +8,10 @@ from api.models.models import User
 @jwt_required()
 def index():
     """Home page -> redirects based on auth status"""
+    print("AUTH HEADER:", request.headers.get("Authorization"))
     user_id = get_jwt_identity()
     user = User.query.filter_by(id=user_id).first()
-    return jsonify({'message': f'Welcome User! {user}'})
+    return jsonify({'message': f'Welcome {user}!'})
 
 
 """Create an endpoint for navifgation bar"""
