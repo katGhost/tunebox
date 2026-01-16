@@ -63,7 +63,7 @@ def signup():
 """Login"""
 @auth.route('/login', methods=['POST'])
 def login():
-    data = request.json() or {}
+    data = request.get_json() or {}
 
     # user input fields
     username = data.get('username')
