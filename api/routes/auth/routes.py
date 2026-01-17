@@ -47,11 +47,10 @@ def signup():
     db.session.commit()
 
     # Give user access token
-    access_token = create_access_token(identity=new_user.id)
+    #access_token = create_access_token(identity=str(new_user.id))
 
     # JSON data
     return jsonify({
-        "access_token": access_token,
         "success": True,
         "user": {
             "id": new_user.id,
@@ -82,7 +81,8 @@ def login():
     
     if user and bcrypt.check_password_hash(user.password_hash, password):
         # Give user access token
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
+        
         return jsonify({
             'msg': 'Login Success!',
             'success': True,
@@ -98,8 +98,16 @@ def login():
 
 
 
+"""Logout"""
+@auth.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    session.clear()
+
+
 # When entity is not authorized
 @auth.route('/unauthorized', methods=['GET', 'POST'])
 def unauthorized():
     ...
     return jsonify({'message': 'Who daF you are?'}), 401
+
