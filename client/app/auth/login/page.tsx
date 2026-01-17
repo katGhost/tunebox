@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '../../../lib/api';
 import { useAuthStore } from '../../../stores/auth';
+import { useAuth } from '../../../context/AuthContext';
 
 
 export default function Signup() {
@@ -12,7 +13,7 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const setAuth = useAuthStore((state) => state.setAuth);
-
+    const { login } = useAuth();
     // use router
     const router = useRouter();
     
@@ -30,10 +31,7 @@ export default function Signup() {
                 // Save user and token -> remember to save locally
                 setAuth(user, access_token);
 
-                localStorage.setItem("access_token", access_token);
-
-                // try and redirect to homepage || dashboard
-                router.push('/dashboard');
+                login(response.data.access_token);
             }
         }
         catch (err: any) {
