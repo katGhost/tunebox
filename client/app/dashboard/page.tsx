@@ -3,7 +3,8 @@
 import api from '../../lib/api';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { logout } from '../../lib/auth';
+import { useAuth } from '../../context/AuthContext';
+import Link from 'next/link';
 
 
 export default function Dashboard() {
@@ -11,13 +12,11 @@ export default function Dashboard() {
   const [error, setError] = useState<string>('');
   const [checkingAuth, setCheckingAuth] = useState('');
   const router = useRouter();
+  const { isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-
-    // No token? -> redirect user immediately to login
-    if (!token) {
-      router.push("/auth/login");
+    if (!isAuthenticated) {
+      router.push('/auth/login');
       return;
     }
 
@@ -41,7 +40,7 @@ export default function Dashboard() {
     };
 
     fetchUserData();
-  }, [router]);
+  }, [isAuthenticated, router]);
 
   // check auth session
   if (checkingAuth) return <p>Checking session...</p>
@@ -51,19 +50,31 @@ export default function Dashboard() {
 
   return (
     <div className="w-full mx-auto px-4 py-6">
-      <div className="flex">
-        <h1>{message}</h1>
+      {/* header */}
+      <header>
+        <div className="flex">
+          <h1 className="flex-1">{message}</h1>
 
-        {/* Button logout */}
-        <button
-          onClick={() => {
-            logout();
-            router.push('/auth/login');
-          }}
-        >
-          Logout
-        </button>
-      </div>
+          {/* Button logout */}
+          <button
+            onClick={() => {
+              logout();
+              router.push('/auth/login');
+            }}
+            className="flex-1"
+          >
+            Logout
+          </button>
+        </div>
+        {/* navbar */}
+        <nav className="pb-4 md:pb-8 flex justify-between items-cente">
+          {/* Linking */}
+          <Link href="/tracks">Tracks</Link>
+          <Link href="/artists">Artists</Link>
+          <Link href="/albums">Albums</Link>
+          <Link href="/more">More...</Link>
+        </nav>
+      </header>
     </div>
     
   );
