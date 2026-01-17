@@ -13,7 +13,7 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///app.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    CORS(app)
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
 
     # Initializations
     db.init_app(app)
