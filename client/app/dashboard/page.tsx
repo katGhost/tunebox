@@ -30,11 +30,11 @@ export default function Dashboard() {
       {
         // if token is invalid or expired
         if (err?.response.status == 401) {
-          localStorage.removeItem("access_token");  // remove token
-          router.push("/auth/login"); // redirect user to login
+          localStorage.removeItem('access_token');  // remove token
+          router.push('/auth/login'); // redirect user to login
         }
         else {
-          setError("Something went wrong!");
+          setError('Something went wrong!');
         }
       }
     };
@@ -52,28 +52,15 @@ export default function Dashboard() {
     <div className="w-full mx-auto px-4 py-6">
       {/* header */}
       <header>
-        <div className="flex">
-          <h1 className="flex-1">{message}</h1>
-
-          {/* Button logout */}
-          <button
-            onClick={() => {
-              logout();
-              router.push('/auth/login');
-            }}
-            className="flex-1"
-          >
-            Logout
-          </button>
-        </div>
-        {/* navbar */}
-        <nav className="pb-4 md:pb-8 flex justify-between items-cente">
+        {/* music stuff navigator */}
+        <div className="pb-4 md:pb-8 flex justify-between items-cente">
           {/* Linking */}
-          <Link href="/tracks">Tracks</Link>
-          <Link href="/artists">Artists</Link>
-          <Link href="/albums">Albums</Link>
-          <Link href="/more">More...</Link>
-        </nav>
+          <Link href="/tracks" className="text-md font-medium text-zinc-700 hover:text-emerald-500 dark:text-gray-300 dark:hover:text-emerald-400">Tracks</Link>
+          <Link href="/artists" className="text-md font-medium text-zinc-700 hover:text-emerald-500 dark:text-gray-300 dark:hover:text-emerald-400">Artists</Link>
+          <Link href="/albums" className="text-md font-medium text-zinc-700 hover:text-emerald-500 dark:text-gray-300 dark:hover:text-emerald-400">Albums</Link>
+          <Link href="/albums" className="text-md font-medium text-zinc-700 hover:text-emerald-500 dark:text-gray-300 dark:hover:text-emerald-400">Me</Link>
+          <button onClick={logout} className="text-md font-medium text-zinc-700 hover:text-emerald-500 dark:text-gray-300 dark:hover:text-emerald-400">logout</button>
+        </div>
       </header>
     </div>
     
