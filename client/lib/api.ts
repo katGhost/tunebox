@@ -18,4 +18,15 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  res => res,
+  async err => {
+    if (err?.response.status == 401) {
+      await api.post('/auth/refresh');
+      return api(err.config);
+    }
+    return Promise.reject(err);
+  }
+);
+
 export default api;

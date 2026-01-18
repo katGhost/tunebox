@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '../../../lib/api';
-import { useAuthStore } from '../../../stores/auth';
+//import { useAuthStore } from '../../../stores/auth';
 import { useAuth } from '../../../context/AuthContext';
 
 
@@ -12,7 +12,7 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const setAuth = useAuthStore((state) => state.setAuth);
+    //const setAuth = useAuthStore((state) => state.setAuth);
     const { login } = useAuth();
     // use router
     const router = useRouter();
@@ -25,13 +25,18 @@ export default function Signup() {
 
         try {
             const response = await api.post('auth/login', {email, password});
-            const { access_token, user } = response.data;
+            const { access_token } = response.data;
 
             if (response.status == 200){
                 // Save user and token -> remember to save locally
-                setAuth(user, access_token);
+                //setAuth(user, access_token);
 
-                login(response.data.access_token);
+                login(access_token);
+
+                document.cookie = `access_token=${response.data.access_token}; path=/`;
+
+                // redirect to dashboard
+                router.push('/dashboard');
             }
         }
         catch (err: any) {

@@ -35,9 +35,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): React
     }
 
     const logout = () => {
-        localStorage.removeItem("access_token");
+        document.cookie = 'access_token=; Max-Age=0; path=/';
+        localStorage.removeItem('access_token');
         setToken(null);
-        router.push("/auth/login");
+        router.push('/auth/login');
     }
 
     return (
